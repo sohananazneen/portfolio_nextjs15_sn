@@ -1,21 +1,26 @@
 "use client";
 
 export default function FormControls({ controls, formData, setFormData }) {
-  return controls.map((controlItem) => (
-    <div className="mb-4">
-      <label className="block text-gray-700 text-sm font-bold mb-2">
-        {controlItem.label}
-      </label>
-      <input
-        type={controlItem.type}
-        placeholder={controlItem.placeholder}
-        name={controlItem.name}
-        value={formData[controlItem.name] || ""}
-        onChange={(e) =>
-          setFormData({ ...formData, [controlItem.name]: e.target.value })
-        }
-        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-      />
-    </div>
-  ));
+  return controls.map((controlItem) => {
+    const handleChange = (e) =>
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [controlItem.name]: e.target.value,
+      }));
+    return (
+      <div className="flex flex-col gap-4" key={controlItem.name}>
+        <label className="block text-sm font-bold mb-2">
+          {controlItem.label}
+          <input
+            type={controlItem.type}
+            placeholder={controlItem.placeholder}
+            name={controlItem.name}
+            value={formData[controlItem.name] || ""}
+            onChange={handleChange}
+            className="border border-blue-200 rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-gray-50"
+          />
+        </label>
+      </div>
+    );
+  });
 }
