@@ -1,6 +1,5 @@
 "use client";
 
-import { duration } from "@mui/material";
 import AdminAboutView from "../component/admin-view/about";
 import AdminContactView from "../component/admin-view/contact";
 import AdminEducationView from "../component/admin-view/education";
