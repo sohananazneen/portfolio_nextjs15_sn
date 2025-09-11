@@ -1,5 +1,6 @@
 "use client";
 
+import { duration } from "@mui/material";
 import AdminAboutView from "../component/admin-view/about";
 import AdminContactView from "../component/admin-view/contact";
 import AdminEducationView from "../component/admin-view/education";
@@ -12,9 +13,50 @@ const initialHomeFormData = {
   heading: "",
   summary: "",
 };
+const initialAboutFormData = {
+  aboutme: "",
+  noofprojects: "",
+  yearofexperience: "",
+  noofclients: "",
+  skills: "",
+};
+const initialExperienceFormData = {
+  jobtitle: "",
+  company: "",
+  duration: "",
+  location: "",
+  jobprofile: "",
+};
+const initialEducationFormData = {
+  degree: "",
+  year: "",
+  institution: "",
+};
+const initialProjectFormData = {
+  title: "",
+  website: "",
+  technologies: "",
+  github: "",
+};
+const initialContactFormData = {
+  email: "",
+  phone: "",
+  message: "",
+};
 export default function AdminView() {
   const [currentSelectedTab, setCurrentSelectedTab] = useState("home");
   const [homeViewFormData, setHomeViewFormData] = useState(initialHomeFormData);
+  const [aboutViewFormData, setAboutViewFormData] =
+    useState(initialAboutFormData);
+  const [experienceViewFormData, setExperienceViewFormData] = useState(
+    initialExperienceFormData
+  );
+  const [educationViewFormData, setEducationViewFormData] = useState(
+    initialEducationFormData
+  );
+  const [projectViewFormData, setProjectViewFormData] = useState(
+    initialProjectFormData
+  );
 
   const menuItem = [
     {
@@ -27,14 +69,46 @@ export default function AdminView() {
         />
       ),
     },
-    { id: "about", label: "About", component: <AdminAboutView /> },
+    {
+      id: "about",
+      label: "About Page",
+      component: (
+        <AdminAboutView
+          formData={aboutViewFormData}
+          setFormData={setAboutViewFormData}
+        />
+      ),
+    },
     {
       id: "Experience",
       label: "Experience",
-      component: <AdminExperienceView />,
+      component: (
+        <AdminExperienceView
+          formData={experienceViewFormData}
+          setFormData={setExperienceViewFormData}
+        />
+      ),
     },
-    { id: "education", label: "Education", component: <AdminEducationView /> },
-    { id: "project", label: "Project", component: <AdminProjectView /> },
+    {
+      id: "education",
+      label: "Education",
+      component: (
+        <AdminEducationView
+          formData={educationViewFormData}
+          setFormData={setEducationViewFormData}
+        />
+      ),
+    },
+    {
+      id: "project",
+      label: "Project",
+      component: (
+        <AdminProjectView
+          formData={projectViewFormData}
+          setFormData={setProjectViewFormData}
+        />
+      ),
+    },
     { id: "contact", label: "Contact", component: <AdminContactView /> },
   ];
   return (
