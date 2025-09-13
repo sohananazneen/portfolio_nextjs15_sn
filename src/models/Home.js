@@ -8,5 +8,5 @@ const HomeSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Home = mongoose.model.Home || mongoose.model("Home", HomeSchema);
-export default Home;
+const HomeModel = mongoose.models.Home || mongoose.model("Home", HomeSchema);
+export default HomeModel;

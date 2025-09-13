@@ -1,5 +1,6 @@
 "use client";
 
+import { addData } from "@/services";
 import AdminAboutView from "../component/admin-view/about";
 import AdminContactView from "../component/admin-view/contact";
 import AdminEducationView from "../component/admin-view/education";
@@ -56,7 +57,20 @@ export default function AdminView() {
   const [projectViewFormData, setProjectViewFormData] = useState(
     initialProjectFormData
   );
-
+  async function handleSaveData() {
+    const dataMap = {
+      home: homeViewFormData,
+      about: aboutViewFormData,
+      experience: experienceViewFormData,
+      education: educationViewFormData,
+      project: projectViewFormData,
+    };
+    const response = await addData(
+      currentSelectedTab,
+      dataMap[currentSelectedTab]
+    );
+    console.log(response, "response");
+  }
   const menuItem = [
     {
       id: "home",
@@ -65,6 +79,7 @@ export default function AdminView() {
         <AdminHomeView
           formData={homeViewFormData}
           setFormData={setHomeViewFormData}
+          handleSaveData={handleSaveData}
         />
       ),
     },
@@ -75,16 +90,18 @@ export default function AdminView() {
         <AdminAboutView
           formData={aboutViewFormData}
           setFormData={setAboutViewFormData}
+          handleSaveData={handleSaveData}
         />
       ),
     },
     {
-      id: "Experience",
+      id: "experience",
       label: "Experience",
       component: (
         <AdminExperienceView
           formData={experienceViewFormData}
           setFormData={setExperienceViewFormData}
+          handleSaveData={handleSaveData}
         />
       ),
     },
@@ -95,6 +112,7 @@ export default function AdminView() {
         <AdminEducationView
           formData={educationViewFormData}
           setFormData={setEducationViewFormData}
+          handleSaveData={handleSaveData}
         />
       ),
     },
@@ -105,11 +123,13 @@ export default function AdminView() {
         <AdminProjectView
           formData={projectViewFormData}
           setFormData={setProjectViewFormData}
+          handleSaveData={handleSaveData}
         />
       ),
     },
     { id: "contact", label: "Contact", component: <AdminContactView /> },
   ];
+
   return (
     <div className="border-b border-gray-400 ">
       <nav className="mb-0.5 flex justify-center space-x-6" role="tablist">

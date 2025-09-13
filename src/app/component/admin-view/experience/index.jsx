@@ -34,7 +34,11 @@ const controls = [
     label: "Job Profile",
   },
 ];
-export default function AdminExperienceView({ formData, setFormData }) {
+export default function AdminExperienceView({
+  formData,
+  setFormData,
+  handleSaveData,
+}) {
   // console.log(formData);
   return (
     <div className="w-full">
@@ -44,7 +48,10 @@ export default function AdminExperienceView({ formData, setFormData }) {
           formData={formData}
           setFormData={setFormData}
         />
-        <button className="mt-[5px] border border-blue-600 bg-blue-600 text-white p-3 font-bold text-[16px] focus:bg-green-800 rounded-xl">
+        <button
+          onClick={() => handleSaveData("experience")}
+          className="mt-[5px] border border-blue-600 bg-blue-600 text-white p-3 font-bold text-[16px] focus:bg-green-800 rounded-xl"
+        >
           Add Experience
         </button>
       </div>
