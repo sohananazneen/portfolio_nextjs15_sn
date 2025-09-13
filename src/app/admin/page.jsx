@@ -70,6 +70,16 @@ export default function AdminView() {
       dataMap[currentSelectedTab]
     );
     console.log(response, "response");
+    if (response?.success) {
+      resetFormDatas();
+    }
+  }
+  function resetFormDatas() {
+    setHomeViewFormData(initialHomeFormData);
+    setAboutViewFormData(initialAboutFormData);
+    setExperienceViewFormData(initialExperienceFormData);
+    setEducationViewFormData(initialEducationFormData);
+    setProjectViewFormData(initialProjectFormData);
   }
   const menuItem = [
     {
@@ -140,6 +150,7 @@ export default function AdminView() {
             className="p-4 font-bold text-xl text-black"
             onClick={() => {
               setCurrentSelectedTab(item.id);
+              resetFormDatas();
             }}
           >
             {item.label}
