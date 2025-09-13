@@ -51,7 +51,7 @@ export default function AdminAboutView({
           onClick={() => handleSaveData("about")}
           className="mt-[5px] border border-blue-600 bg-blue-600 text-white p-3 font-bold text-[16px] focus:bg-green-800 rounded-xl"
         >
-          Add Info
+          Save Changes
         </button>
       </div>
     </div>

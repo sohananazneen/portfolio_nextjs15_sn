@@ -1,13 +1,13 @@
 "use client";
 
-import { addData } from "@/services";
+import { addData, getData, updateData } from "@/services";
 import AdminAboutView from "../component/admin-view/about";
 import AdminContactView from "../component/admin-view/contact";
 import AdminEducationView from "../component/admin-view/education";
 import AdminExperienceView from "../component/admin-view/experience";
 import AdminHomeView from "../component/admin-view/home";
 import AdminProjectView from "../component/admin-view/project";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const initialHomeFormData = {
   heading: "",
@@ -57,6 +57,10 @@ export default function AdminView() {
   const [projectViewFormData, setProjectViewFormData] = useState(
     initialProjectFormData
   );
+
+  const [allData, setAllData] = useState({});
+  const [update, setUpdate] = useState(false);
+
   async function handleSaveData() {
     const dataMap = {
       home: homeViewFormData,
@@ -65,15 +69,47 @@ export default function AdminView() {
       education: educationViewFormData,
       project: projectViewFormData,
     };
-    const response = await addData(
-      currentSelectedTab,
-      dataMap[currentSelectedTab]
-    );
+    const response = update
+      ? await updateData(currentSelectedTab, dataMap[currentSelectedTab])
+      : await addData(currentSelectedTab, dataMap[currentSelectedTab]);
+
     console.log(response, "response");
     if (response?.success) {
       resetFormDatas();
+      extractAllDatas();
     }
   }
+  useEffect(() => {
+    extractAllDatas();
+  }, [currentSelectedTab]);
+  async function extractAllDatas() {
+    const response = await getData(currentSelectedTab);
+    if (
+      currentSelectedTab == "home" &&
+      response &&
+      response.data &&
+      response.data.length
+    ) {
+      setHomeViewFormData(response && response.data[0]);
+      setUpdate(true);
+    }
+    if (
+      currentSelectedTab == "about" &&
+      response &&
+      response.data &&
+      response.data.length
+    ) {
+      setAboutViewFormData(response && response.data[0]);
+      setUpdate(true);
+    }
+    if (response?.success) {
+      setAllData({
+        ...allData,
+        [currentSelectedTab]: response && response.data,
+      });
+    }
+  }
+  // console.log(allData, homeViewFormData, "homeViewFormData");
   function resetFormDatas() {
     setHomeViewFormData(initialHomeFormData);
     setAboutViewFormData(initialAboutFormData);
@@ -151,6 +187,7 @@ export default function AdminView() {
             onClick={() => {
               setCurrentSelectedTab(item.id);
               resetFormDatas();
+              setUpdate(false);
             }}
           >
             {item.label}
