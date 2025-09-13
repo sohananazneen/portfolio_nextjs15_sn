@@ -1,6 +1,6 @@
 "use client";
 
-import { addData, getData, updateData } from "@/services";
+import { addData, getData, login, updateData } from "@/services";
 import AdminAboutView from "../component/admin-view/about";
 import AdminContactView from "../component/admin-view/contact";
 import AdminEducationView from "../component/admin-view/education";
@@ -9,6 +9,7 @@ import AdminHomeView from "../component/admin-view/home";
 import AdminProjectView from "../component/admin-view/project";
 import { useEffect, useState } from "react";
 import Login from "../component/admin-view/login";
+import { set } from "mongoose";
 
 const initialHomeFormData = {
   heading: "",
@@ -125,13 +126,23 @@ export default function AdminView() {
     setEducationViewFormData(initialEducationFormData);
     setProjectViewFormData(initialProjectFormData);
   }
-
+  async function handleLogin() {
+    const res = await login(loginFormData);
+    console.log(res, "login");
+    if (res?.success) {
+      setAuthUser(true);
+      sessionStorage.setItem("authUser", JSON.stringify(true));
+    }
+  }
+  useEffect(() => {
+    setAuthUser(JSON.parse(sessionStorage.getItem("authUser")));
+  }, []);
   if (!authUser) {
     return (
       <Login
         formData={loginFormData}
         setFormData={setLoginFormData}
-        handleSaveData={handleSaveData}
+        handleLogin={handleLogin}
       />
     );
   }

@@ -1,5 +1,5 @@
 import connectToDB from "@/database";
-import About from "@/models/About";
+import AboutModel from "@/models/AboutModel";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -7,7 +7,7 @@ export async function POST(req) {
   try {
     await connectToDB();
     const extractData = await req.json();
-    const saveData = await About.create(extractData);
+    const saveData = await AboutModel.create(extractData);
 
     if (saveData) {
       return NextResponse.json({

@@ -40,3 +40,18 @@ export async function updateData(currentTab, formData) {
     console.error("Error updating data:", e);
   }
 }
+export async function login(formData) {
+  try {
+    const response = await fetch(`/api/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+    const result = await response.json();
+    return result;
+  } catch (e) {
+    console.log(e);
+  }
+}

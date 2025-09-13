@@ -1,12 +1,12 @@
 import connectToDB from "@/database";
-import Education from "@/models/Education";
+import EducationModel from "@/models/EducationModel";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 export async function GET(req) {
   try {
     await connectToDB();
-    const extractData = await Education.find({});
+    const extractData = await EducationModel.find({});
 
     if (extractData) {
       return NextResponse.json({
