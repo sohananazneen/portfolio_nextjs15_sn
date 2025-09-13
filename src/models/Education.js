@@ -9,6 +9,6 @@ const EducationSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Education =
+const EducationModel =
   mongoose.model.Education || mongoose.model("Education", EducationSchema);
-export default Education;
+export default EducationModel;

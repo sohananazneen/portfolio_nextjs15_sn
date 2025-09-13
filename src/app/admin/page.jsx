@@ -8,6 +8,7 @@ import AdminExperienceView from "../component/admin-view/experience";
 import AdminHomeView from "../component/admin-view/home";
 import AdminProjectView from "../component/admin-view/project";
 import { useEffect, useState } from "react";
+import Login from "../component/admin-view/login";
 
 const initialHomeFormData = {
   heading: "",
@@ -43,6 +44,11 @@ const initialContactFormData = {
   phone: "",
   message: "",
 };
+const initialLoginFormData = {
+  username: "",
+  password: "",
+};
+
 export default function AdminView() {
   const [currentSelectedTab, setCurrentSelectedTab] = useState("home");
   const [homeViewFormData, setHomeViewFormData] = useState(initialHomeFormData);
@@ -60,6 +66,8 @@ export default function AdminView() {
 
   const [allData, setAllData] = useState({});
   const [update, setUpdate] = useState(false);
+  const [authUser, setAuthUser] = useState(false);
+  const [loginFormData, setLoginFormData] = useState(initialLoginFormData);
 
   async function handleSaveData() {
     const dataMap = {
@@ -116,6 +124,16 @@ export default function AdminView() {
     setExperienceViewFormData(initialExperienceFormData);
     setEducationViewFormData(initialEducationFormData);
     setProjectViewFormData(initialProjectFormData);
+  }
+
+  if (!authUser) {
+    return (
+      <Login
+        formData={loginFormData}
+        setFormData={setLoginFormData}
+        handleSaveData={handleSaveData}
+      />
+    );
   }
   const menuItem = [
     {
@@ -186,7 +204,7 @@ export default function AdminView() {
           <button
             key={item.id}
             type="button"
-            className="p-4 font-bold text-xl text-black"
+            className="p-4 font-bold text-xl text-black hover:cursor-pointer"
             onClick={() => {
               setCurrentSelectedTab(item.id);
               resetFormDatas();

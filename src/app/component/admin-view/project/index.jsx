@@ -49,8 +49,12 @@ export default function AdminProjectView({
                   Title: {item.title}
                 </h2>
                 <p className="text-lg text-gray-600">
-                  <a href={item.website} target="_blank">
-                    {item.website}
+                  <a
+                    href={item.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Website: {item.website}
                   </a>
                 </p>
                 <p className="text-lg text-gray-600">
