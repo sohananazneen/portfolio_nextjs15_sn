@@ -1,5 +1,4 @@
 import connectToDB from "@/database";
-import Experience from "@/models/Experience";
 import ExperienceModel from "@/models/ExperienceModel";
 import { NextResponse } from "next/server";
 

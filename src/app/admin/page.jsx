@@ -225,6 +225,16 @@ export default function AdminView() {
             {item.label}
           </button>
         ))}
+        <button
+          type="button"
+          className="p-4 font-bold text-xl text-black hover:cursor-pointer"
+          onClick={() => {
+            setAuthUser(false);
+            sessionStorage.removeItem("authUser");
+          }}
+        >
+          Logout
+        </button>
       </nav>
       <div className="mt-10 p-10">
         {menuItem.find((item) => item.id === currentSelectedTab)?.component}

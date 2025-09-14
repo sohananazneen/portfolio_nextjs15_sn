@@ -77,7 +77,7 @@ export default function AdminExperienceView({
         />
         <button
           onClick={() => handleSaveData("experience")}
-          className="mt-[5px] border border-blue-600 bg-blue-600 text-white p-3 font-bold text-[16px] focus:bg-green-800 rounded-xl"
+          className="mt-[5px] border border-blue-600 bg-blue-600 text-white p-3 font-bold text-[16px] focus:bg-green-800 rounded-xl cursor-pointer"
         >
           Add Experience
         </button>

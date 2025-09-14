@@ -12,5 +12,6 @@ const ExperienceSchema = new mongoose.Schema(
 );
 
 const ExperienceModel =
-  mongoose.model.Experience || mongoose.model("Experience", ExperienceSchema);
+  mongoose.models.Experience || mongoose.model("Experience", ExperienceSchema);
+
 export default ExperienceModel;

@@ -61,7 +61,7 @@ export default function AdminEducationView({
         />
         <button
           onClick={() => handleSaveData("education")}
-          className="mt-[5px] border border-blue-600 bg-blue-600 text-white p-3 font-bold text-[16px] focus:bg-green-800 rounded-xl"
+          className="mt-[5px] border border-blue-600 bg-blue-600 text-white p-3 font-bold text-[16px] focus:bg-green-800 rounded-xl cursor-pointer"
         >
           Add Education
         </button>
