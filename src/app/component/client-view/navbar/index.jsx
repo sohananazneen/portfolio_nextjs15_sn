@@ -17,6 +17,7 @@ const menuItems = [
 function CreateMenus({ activeLink, getMenuItems, setActiveLink }) {
   return getMenuItems.map((item) => (
     <LinkScroll
+      key={item.id}
       activeClass="active"
       to={item.id}
       spy={true}
@@ -51,10 +52,11 @@ export default function Navbar() {
               <Image
                 src={logo}
                 alt="logo"
-                layout="responsive"
-                quality={100}
+                className="w-full h-auto"
+                qualities={[100]}
                 height={100}
                 width={120}
+                priority
               />
             </div>
           </div>
