@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import logo from "../../../../assets/images/logo.png";
 import { Link as LinkScroll, scroller } from "react-scroll";
 import Link from "next/link";
+import { delay } from "framer-motion";
+import { set } from "mongoose";
 
 const menuItems = [
   { id: "home", label: "Home" },
@@ -27,8 +29,8 @@ function CreateMenus({ activeLink, getMenuItems, setActiveLink }) {
       className={`px-4 py-2 cursor-pointer animation-hover inline-block relative 
   ${
     activeLink === item.id
-      ? "text-green-main animation-active shadow-green-main"
-      : "text-black font-bold hover:text-green-main"
+      ? "text-green-500 animation-active shadow-green-500"
+      : "text-black font-bold hover:text-green-500"
   }`}
     >
       {item.label}
@@ -39,6 +41,11 @@ export default function Navbar() {
   const [activeLink, setActiveLink] = useState("home");
   const [scrollActive, setscrollActive] = useState(false);
 
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      setscrollActive(window.scrollY > 20);
+    });
+  }, []);
   return (
     <>
       <header
@@ -48,7 +55,7 @@ export default function Navbar() {
       >
         <nav className="max-w-screen-xl px-6 sm:px-8 lg:px-16 mx-auto grid grid-flow-col py-3 sm:py-4">
           <div className="col-start-1 col-end-2 flex items-center">
-            <div className="cursor-pointer flex gap-2 font-bold items-center text-[20px] text-green-main">
+            <div className="cursor-pointer flex gap-2 font-bold items-center text-[20px] text-green-500">
               <Image
                 src={logo}
                 alt="logo"
@@ -67,8 +74,33 @@ export default function Navbar() {
               setActiveLink={setActiveLink}
             />
           </ul>
+          <div className="col-start-10 col-end-12 flex justify-end">
+            <button
+              onClick={() =>
+                scroller.scrollTo("contact", {
+                  duration: 1500,
+                  delay: 100,
+                  smooth: true,
+                })
+              }
+              className="py-2 px-5 border-2 border-green-600 text-green-600 font-semibold rounded-full text-xl hover:bg-green-500 hover:text-white hover:shadow-lg transition-all duration-300 ease-in-out cursor-pointer"
+            >
+              Contact Me
+            </button>
+          </div>
         </nav>
       </header>
+      <nav className="fixed lg:hidden bottom-0 right-0 left-0 z-20 px-4 sm:px-8 shadow-teal-50">
+        <div className="bg-white-500 sm:px-3">
+          <ul className="overflow-x-auto flex w-full justify-between items-center text-[#000]">
+            <CreateMenus
+              activeLink={activeLink}
+              getMenuItems={menuItems}
+              setActiveLink={setActiveLink}
+            />
+          </ul>
+        </div>
+      </nav>
     </>
   );
 }
