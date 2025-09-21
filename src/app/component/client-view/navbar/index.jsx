@@ -26,12 +26,14 @@ function CreateMenus({ activeLink, getMenuItems, setActiveLink }) {
       smooth={true}
       duration={1000}
       onSetActive={() => setActiveLink(item.id)}
-      className={`px-4 py-2 cursor-pointer animation-hover inline-block relative 
-  ${
-    activeLink === item.id
-      ? "text-green-500 animation-active shadow-green-500"
-      : "text-black font-bold hover:text-green-500"
-  }`}
+      className={`px-4 py-2 cursor-pointer inline-block relative font-bold
+      transition-[background-size,color] duration-300 ease-out
+      bg-gradient-to-r from-green-500 to-green-500 bg-no-repeat bg-[position:0_100%]
+      ${
+        activeLink === item.id
+          ? "text-green-500 bg-[length:100%_2px]"
+          : "text-black hover:text-green-500 bg-[length:0%_2px] hover:bg-[length:100%_2px]"
+      }`}
     >
       {item.label}
     </LinkScroll>
@@ -49,7 +51,7 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 w-full bg-white z-30 transition-all ${
+        className={`fixed top-0 w-full bg-white z-30 transition-shadow transition-colors duration-300 ease-in-out hover:shadow-md ${
           scrollActive ? "shadow-md pt-0" : "pt-4"
         }`}
       >
